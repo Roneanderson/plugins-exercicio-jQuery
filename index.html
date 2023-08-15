@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>formulario cadastro jQuery</title>
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+        <div class="container">
+            <h1>Formulário</h1>
+        <form>
+        <fieldset>
+            <div class="form-campo">
+                <label for="text">Nome completo</label>
+                <input type="text" id="texto" name="nome" />
+            </div>
+            <div class="form-campo">
+                <label for="email">Seu email</label>
+                <input id="email" type="email" name="email"/>
+            </div>
+            <div class="form-campo">
+                <label for="telefone">Número de telefone</label>
+                <input type="tel"  id="telefone" name="telefone"/>
+            </div>
+            <div class="form-campo">
+                <label for="number">Número de CPF</label>
+                <input type="number" id="numero-CPF"  name="cpf"/>
+            </div>
+            <div class="form-campo">
+                <label for="text">Endereço completo</label>
+                <input  type="text" id="endereço" name="endereço"/>
+            </div>
+            <div class="form-campo">
+                <label for="numero-CEP">Seu CEP</label>
+                <input type="number" id="numero-CEP" name="cep"/>
+            </div>
+            <button type="submit">Enviar</button>
+        </fieldset>
+    </form>
+        </div>
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="./js/jquery.mask.min.js" ></script>
+        <script src="./js/jquery.validate.min.js" ></script>
+        <script src="./js/messages_pt_BR.min.js" ></script>
+        <script>
+            $(document).ready(function(){
+                $('#telefone').mask('(00) 00000-0000')
+
+                $('#numero-CEP').mask('00.000')
+
+                $('form').validate({
+                    rules: {
+                        nome: {
+                            required: true
+                        },  
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        endereço: {
+                            required: true
+                        },
+                        telefone: {
+                            required: true
+                        },
+                        cpf: {
+                            required: true
+                        },
+                        cep: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        nome: 'Por favor, Insira o seu nome'
+                    },
+
+                    // interceptar o envio submit formulário
+
+                    submitHandler: function(form) {
+                        console.log(form)
+                    },
+
+                    // interceptar o click formulário mas é invalido
+
+                    invalidHandler: function(evento, validador) {
+                        let camposIncorretos = validador.numberOfInvalids();
+                        if (camposIncorretos) {
+                            alert(`Existem ${camposIncorretos} campos incorretos`)
+                        }
+                    }
+                })
+            })
+        </script>
+</body>
+</html>
